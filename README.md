@@ -36,3 +36,7 @@ This is just like when I type `./a.out` in class - except now we have a program 
 ### how to run locally instead:
 
 I set up Codespaces for this hackathon because it can be challenging to make sure all your team's install settings work for this library build. However, if you want to try to code locally, you just need to make sure you have [CMake](https://embedded.seas.upenn.edu/Guides/build-systems/getting-started-with-cmake/#__tabbed_1_1) and a c++ compiler installed on your machine. The CMake steps will be the same, you just won't need to find a Port to open a new window, it will open automatically.
+
+### about codespaces
+
+Codespaces is a free IDE on Github, but you only get 60 hours per month on the free plan. This should be fine for this project! I recommend you **Stop** the codespace when you are not using it. You can see a list of your active spaces here: https://github.com/codespaces and then click the "..." 3 dots to stop any of them.
