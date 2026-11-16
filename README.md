@@ -16,7 +16,7 @@ First read through the code here. There are some kinds of files we have not seen
  ```
   cmake -B build
 ```
-This uses a tool called `cmake` which reads the `CMakeLists.txt` file and starts the compiling and build process. Next, type and press enter:
+This uses a tool called `cmake` which reads the `CMakeLists.txt` file and starts the compiling and build process in a folder called `build`. Next, type and press enter:
 ```
 cmake --build build
 ```
