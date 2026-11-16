@@ -41,7 +41,7 @@ This is just like when I type `./a.out` in class - except now we have a program 
 4. Remember to run you programs from the main folder, not from inside `build/`
 
 ### 💾 saving and sharing your work
-Your files are saved in the Codespace, but Codespaces can be deleted after a period of inactivity. You need to "push" your changes to your code saved on github. At the end of every session: Source Control icon (left sidebar) → write a message → Commit → Sync Changes.
+Your files are saved in the Codespace, but Codespaces can be deleted after a period of inactivity. You need to "push" your changes to your code saved on github. At the end of every session: Source Control icon (left sidebar, 3 blobs connected by a line) → write a message → Commit → Sync Changes.
 
 ### how to run locally instead:
 
