@@ -8,10 +8,11 @@ First read through the code here. There are some kinds of files we have not seen
 - `CMakeLists.txt`: a configuration file that will make compiling this project a lot simpler, as we will include multiple files + libraries
 
 ### to run the example, example.cpp
-1. Find the green "Use this template" button - click that and choose "Create a new repository". This will be your own copy of this code.
-2. In your new copy, click the green "Code" button and choose "Create codespace on main". This will open an IDE for you, a place to edit and run c++
-3. This may take a few minutes to load initially! ⏰ ...
-4. Find your files on the left, and your terminal at the bottom. When you are ready for the terminal, type the following and press enter:
+1. Read through `example.cpp` first. What will this file do? How does it do it? Look in the comments for links to the `raylib` documentation.
+2. Find the green "Use this template" button - click that and choose "Create a new repository". This will be your own copy of this code.
+3. In your new copy, click the green "Code" button and choose "Create codespace on main". This will open an IDE for you, a place to edit and run c++
+4. This may take a few minutes to load initially! ⏰ ...
+5. Find your files on the left, and your terminal at the bottom. When you are ready for the terminal, type the following and press enter:
  ```
   cmake -B build
 ```
