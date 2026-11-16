@@ -20,7 +20,7 @@ This uses a tool called `cmake` which reads the `CMakeLists.txt` file and starts
 ```
 cmake --build build
 ```
-This command completes the compiling process in the `build` folder, and adds your executable program (like `a.out`) to that folder.
+This command completes the compiling process in the `build` folder, and adds your executable program (like `a.out`) to that folder. This replaces typing `g++`
 Once that compiling is all finished, in the terminal type and press enter:
 ```
 ./build/example
@@ -33,6 +33,17 @@ This is just like when I type `./a.out` in class - except now we have a program 
 2. Look for **Port 6080** - and find a little globe icon, you may have to hover over the URL in order to find this. Click the globe.
 3. A new window should open in your browser, which is a **desktop simulator**. Click "Connect"
 4. You should see the example code (Toby & Proton, cats) show in a graphics window. Press Escape to close the window when you're done.
+
+### 🛠️ to write your own program
+1. Put your team's code in `main.cpp`. Keep `example.cpp` as a working demo.
+2. After changing code, you only need to run `cmake --build build` and then run `./build/main`
+3. When you make a new class, you'll need to change and add to `CMakeLists.txt` - the comments in that file tells you where.
+4. Remember to run you programs from the main folder, not from inside `build/`
+
+### 💾 saving and sharing your work
+Your files are saved in the Codespace, but Codespaces can be deleted after a period of inactivity. **If it isn't on GitHub, it isn't safe.** At the end of every session: Source Control icon (left sidebar) → write a message → Commit → Sync Changes.
+
+One teammate creates the repo from the template, then adds the others under Settings → Collaborators. Everyone opens their own Codespace on that repo. Use `git pull` to get teammates' changes, and try to work in separate files to avoid conflicts.
 
 ### how to run locally instead:
 
