@@ -13,14 +13,14 @@ This project is being developed for hackathon #2 and is inspired by Kate Crawfor
 Our goal is to create an original, interactive c++ application exploring the relationship between technology, society, and the concepts of abstraction, efficiency, or recursion.
 
 **Project Title:**
-TBD
+FlockWatch
 
 **Project Description:** 
 TBD
 
 ## Important Dates (Reminders for us)
 - November 20, 2026: wip presentation (5–7 minutes)
-- November 23, 2026: final submission by 11:59 PM
+- November 24, 2026: final submission by 11:59 PM
 
 ## libs, language, and tools
 - C++
