@@ -16,7 +16,7 @@ Our goal is to create an original, interactive c++ application exploring the rel
 FlockWatch
 
 **Project Description:** 
-TBD
+For this project, we will be using a map that includes the CCNY campus and its surroundings. Flock cameras, cameras that photograph passing vehicles and log searchable records of where or when they travel, are going to be placed around the map. Cars will also be placed around the map ready to be captured by the Flock cameras.
 
 ## Important Dates (Reminders for us)
 - November 20, 2026: wip presentation (5–7 minutes)
