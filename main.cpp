@@ -7,14 +7,16 @@ using namespace std;
 
 #define FLOCK_CIRCLE_FADE Fade(BLACK, 0.3f)
 
+//declarations
 Texture2D Car;
 Texture2D Map;
 static int maxX = 1500;
 static int maxY = 750;
 vector <string> licensePlatesRegistered; // might make a separate class later
 
+//custom classes
 class Vehicle {
-private:
+private: // these private  fields are attributes for our cars, we plan to add more identification attributes like car  color and  make if  time permits
     float x = 0;
     float y = 0;
     float xSpeed = 0.0;
@@ -31,7 +33,7 @@ public:
     void drawVehicle() {
         DrawTextureEx(Car, {x, y}, angle, 0.03f, WHITE); // load car
     }
-    string getLicensePlate() {
+    string getLicensePlate() { // getter  function
         return licensePlate;
     }
     void generateLicensePlate() {
@@ -58,10 +60,26 @@ public:
     void applyCorrection() {
         int absXSpeed = abs(xSpeed);
         int absYSpeed = abs(ySpeed);
-        if (x < 0) {xSpeed = absXSpeed;turnRight();}
-        if (y < 0) {ySpeed = absYSpeed;turnDown();}
-        if (x > maxX) {xSpeed = -absXSpeed;turnLeft();}
-        if (y > maxY) {ySpeed = -absYSpeed;turnUp();}
+        if (x < 0) {
+            y -= 15; //reset  previous car correction  (y+= 15)
+            xSpeed = absXSpeed;
+            turnRight();
+        }
+        if (y < 0) {
+            ySpeed = absYSpeed;
+            turnDown();
+        }
+        if (x > maxX) {
+            y += 15;  //temporary correction for the car to  be on the road  when it drives on  the left side of the  road (FIXME FUTURE)
+            x = maxX;
+            xSpeed = -absXSpeed;
+            turnLeft();
+        }
+        if (y > maxY) {
+            y = maxY;
+            ySpeed = -absYSpeed;
+            turnUp();
+        }
     }
 };
 
@@ -106,7 +124,7 @@ int main() {
     }
 
     // spawn cameras and cars
-    FlockCamera flock1 = FlockCamera(200,225);
+    FlockCamera flock1 = FlockCamera(200,355);
     // Vehicle car1 = Vehicle(200,175);
     Vehicle car1 = Vehicle(200,355);
     car1.setSpeed(1,0);
