@@ -27,6 +27,7 @@ public:
     Vehicle(float startX, float startY, string plate, float startAngle,float startXSpeed, float startYSpeed) : x(startX), y(startY), licensePlate(plate), angle(startAngle), xSpeed(startXSpeed), ySpeed(startYSpeed) {
 
     }
+
     Vehicle(float startX, float startY) : x(startX), y(startY), licensePlate("DEFAULT"), angle(0.00f), xSpeed(0.0f), ySpeed(0.0f) {
         
     }
@@ -114,7 +115,7 @@ int main() {
     InitWindow(1500, 750, "FlockWatch");
     SetTargetFPS(60); //Set FPS
 
-    Car = LoadTexture("car.png"); // Car img
+    Car = LoadTexture("cars/car.png"); // Car img
     Map = LoadTexture("Map.png"); // Map img
     
     // if map didn't load close window
