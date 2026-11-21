@@ -127,6 +127,10 @@ public:
             turnUp();
         }
     }
+
+    Rectangle getHitBox() {
+        return {x, y, CarGreen.width * 0.03f, CarGreen.height * 0.03f};
+    }
 };
 
 class FlockCamera {
@@ -147,10 +151,10 @@ public:
         DrawCircle(x,y,8.0f,BLACK);
     }
     // void setFade() {} // gonna make it red when a vehicle passes through
-    bool isVehicleInRange(Vehicle victim) { // still needs distance calculation added
-        float distance = 0.0;
-        if (distance <= range) return true;
-        return false;
+    bool isVehicleInRange(Vehicle car) { // still needs distance calculation added
+        Rectangle carBox = car.getHitBox();
+        
+        return CheckCollisionCircleRec({(float)x, (float)y}, range, carBox);
     }
 };
 
@@ -235,6 +239,25 @@ int main() {
         car1.drawVehicle();
         car1.moveVehicle();
         car1.applyCorrection();
+
+        if (
+            flock1.isVehicleInRange(car1) || 
+            flock2.isVehicleInRange(car1) ||
+            flock3.isVehicleInRange(car1) ||
+            flock4.isVehicleInRange(car1) ||
+            flock6.isVehicleInRange(car1) ||
+            flock7.isVehicleInRange(car1) ||
+            flock8.isVehicleInRange(car1) ||
+            flock9.isVehicleInRange(car1) ||
+            flock10.isVehicleInRange(car1) ||
+            flock11.isVehicleInRange(car1) ||
+            flock12.isVehicleInRange(car1) ||
+            flock13.isVehicleInRange(car1) ||
+            flock14.isVehicleInRange(car1) ||
+            flock15.isVehicleInRange(car1)
+        ) {
+            DrawText("COLLISION!", 50, 50, 30, RED);
+        }
 
        EndDrawing(); // end drawing anim
     }

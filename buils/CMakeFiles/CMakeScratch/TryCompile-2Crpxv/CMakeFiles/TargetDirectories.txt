@@ -1,0 +1,3 @@
+/workspaces/hack2-fall26_Team_15/buils/CMakeFiles/CMakeScratch/TryCompile-2Crpxv/CMakeFiles/cmTC_09ca4.dir
+/workspaces/hack2-fall26_Team_15/buils/CMakeFiles/CMakeScratch/TryCompile-2Crpxv/CMakeFiles/edit_cache.dir
+/workspaces/hack2-fall26_Team_15/buils/CMakeFiles/CMakeScratch/TryCompile-2Crpxv/CMakeFiles/rebuild_cache.dir
