@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include "raylib.h"
-#include <random>
 #include <ctime>
 
 using namespace std;
@@ -22,7 +21,6 @@ Texture2D CarRed;
 Texture2D Map; 
 static int maxX = 1500;
 static int maxY = 750;
-vector <string> licensePlatesRegistered; // might make a separate class later
 
 //custom classes
 class Vehicle {
@@ -36,24 +34,28 @@ private: // these private  fields are attributes for our cars, we plan to add mo
     string carColor;
     string licensePlate;
 public:
-        Vehicle(float startX, float startY, string make, string color)
+    Vehicle(float startX, float startY, string make, string color)
             : x(startX), y(startY),
             carMake(make), carColor(color),
             angle(0.0f), xSpeed(0.0f), ySpeed(0.0f)
         {
-            generateLicensePlate();
+        generateLicensePlate();
         }
 
-   void drawVehicle() {
+    void drawVehicle() {
+        Texture2D texture;
+
         if (carColor == "Green") {
-            DrawTextureEx(CarGreen, {x, y}, angle, 0.03f, WHITE);
+            texture = CarGreen;
         }
         else if (carColor == "Blue") {
-            DrawTextureEx(CarBlue, {x, y}, angle, 0.03f, WHITE);
+            texture = CarBlue;
         }
-        else if (carColor == "Red") {
-            DrawTextureEx(CarRed, {x, y}, angle, 0.03f, WHITE);
+        else {
+            texture = CarRed;
         }
+
+        DrawTextureEx(texture, {x, y}, angle, 0.03f, WHITE);
     }
     string getLicensePlate() { // getter  function
         return licensePlate;
@@ -127,24 +129,32 @@ public:
             turnUp();
         }
     }
-
     Rectangle getHitBox() {
-        return {x, y, CarGreen.width * 0.03f, CarGreen.height * 0.03f};
+        float width = CarGreen.width * 0.03f;
+        float height = CarGreen.height * 0.03f;
+
+        if (angle == 90.0f) {
+            return {x - height, y, height, width};
+        }
+        else if (angle == 180.0f) {
+            return {x - width, y - height, width, height};
+        }
+        else if (angle == 270.0f) {
+            return {x, y - width, height, width};
+        }
+
+        return {x, y, width, height};
     }
 };
 
 class FlockCamera {
 private:
-    int x = 0.0;
-    int y = 0.0;
+    int x = 0;
+    int y = 0;
     float range = 40.0f;
 public:
-    FlockCamera(int cx, int cy, float crange) : x(cx) , y(cy) , range(crange) {
-
-    }
-    FlockCamera(int cx, int cy) : x(cx), y(cy),range(40.0f) {
-
-    }
+    FlockCamera(int cx, int cy, float crange = 40.0f)
+        : x(cx), y(cy), range(crange) {}
     void drawCamera() {
         DrawCircle(x,y,range,FLOCK_CIRCLE_FADE); // circle fade
         DrawCircleLines(x,y,range,BLACK);
@@ -178,32 +188,33 @@ int main() {
     }
 
     // spawn cameras and cars
-    // Upper street
-    FlockCamera flock2(110, 168);
-    FlockCamera flock3(360, 168);
-    FlockCamera flock4(892, 168);
-    FlockCamera flock7(1340, 168);
+    vector<FlockCamera> cameras = {
+        // Upper street
+        FlockCamera(110, 168),
+        FlockCamera(360, 168),
+        FlockCamera(892, 168),
+        FlockCamera(1340, 168),
 
-    // Middle street
-    FlockCamera flock1(200, 355);
-    FlockCamera flock9(445, 355);
-    FlockCamera flock8(892, 355);
-    FlockCamera flock6(1340, 355);
+        // Middle street
+        FlockCamera(200, 355),
+        FlockCamera(445, 355),
+        FlockCamera(892, 355),
+        FlockCamera(1340, 355),
 
-    // Diagonal streets
-    FlockCamera flock10(350, 476);
-    FlockCamera flock11(529, 555);
+        // Diagonal streets
+        FlockCamera(350, 476),
+        FlockCamera(529, 555),
 
-    // Bottom street
-    FlockCamera flock14(89, 690);
-    FlockCamera flock13(355, 690);
-    FlockCamera flock12(622, 690);
-    FlockCamera flock15(892, 690);
+        // Bottom street
+        FlockCamera(89, 690),
+        FlockCamera(355, 690),
+        FlockCamera(622, 690),
+        FlockCamera(892, 690)
+    };
     
     // Vehicle car1 = Vehicle(200,175);
     Vehicle car1(200, 355, "Toyota", "Green");
     car1.setSpeed(1,0);
-    car1.generateLicensePlate();
     cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
 
@@ -222,40 +233,26 @@ int main() {
 
 
         // draw the flock cameras and vehicles and give them behavior
-        flock1.drawCamera();
-        flock2.drawCamera();
-        flock3.drawCamera();
-        flock4.drawCamera();
-        flock6.drawCamera();
-        flock7.drawCamera();
-        flock8.drawCamera();
-        flock9.drawCamera();
-        flock10.drawCamera();
-        flock11.drawCamera();
-        flock12.drawCamera();
-        flock13.drawCamera();
-        flock14.drawCamera();
-        flock15.drawCamera();
+        // Draw the vehicle
         car1.drawVehicle();
+        DrawRectangleLinesEx(car1.getHitBox(), 2, RED);
+
+        // Update the vehicle
         car1.moveVehicle();
         car1.applyCorrection();
 
-        if (
-            flock1.isVehicleInRange(car1) || 
-            flock2.isVehicleInRange(car1) ||
-            flock3.isVehicleInRange(car1) ||
-            flock4.isVehicleInRange(car1) ||
-            flock6.isVehicleInRange(car1) ||
-            flock7.isVehicleInRange(car1) ||
-            flock8.isVehicleInRange(car1) ||
-            flock9.isVehicleInRange(car1) ||
-            flock10.isVehicleInRange(car1) ||
-            flock11.isVehicleInRange(car1) ||
-            flock12.isVehicleInRange(car1) ||
-            flock13.isVehicleInRange(car1) ||
-            flock14.isVehicleInRange(car1) ||
-            flock15.isVehicleInRange(car1)
-        ) {
+        // Draw cameras and check collisions
+        bool collision = false;
+
+        for (FlockCamera& camera : cameras) {
+            camera.drawCamera();
+
+            if (camera.isVehicleInRange(car1)) {
+                collision = true;
+            }
+        }
+
+        if (collision) {
             DrawText("COLLISION!", 50, 50, 30, RED);
         }
 
