@@ -47,7 +47,7 @@ cmake --build build
 - Edgar: Deals with the car animations, physics, and some parts of the classes
 - Aoanul: Fetches assets for this projects, loads them in, and creates attributes via car class. Also refactors code and documents. Oversees work of fellow peers to make sure we adhere to the hackathan requirements.
 - Jeremy: Codes Collision detection, improves code for readability, separates classes into header files.
-- 
+  
 (Workflow was flexible so we helped each other out on certain aspects)
 
 ## Research and Citations
