@@ -119,13 +119,10 @@ int main() {
 
        Vector2 mouse = GetMousePosition(); //temp mouse position
 
-       DrawText(TextFormat("X: %.0f, Y: %.0f", mouse.x, mouse.y), 25,20, 20, BLACK); //temp draw text to help us identify coords better
-
 
         // draw the flock cameras and vehicles and give them behavior
         // Draw the vehicle
         car1.drawVehicle();
-        DrawRectangleLinesEx(car1.getHitBox(), 2, RED);
 
         // Update the vehicle
         car1.moveVehicle();
@@ -155,10 +152,6 @@ int main() {
             if (camera.isVehicleInRange(car1)) {
                 collision = true;
             }
-        }
-
-        if (collision) {
-            DrawText("COLLISION!", 50, 50, 30, RED);
         }
 
        EndDrawing(); // end drawing anim
