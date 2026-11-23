@@ -14,6 +14,49 @@ using namespace std;
 // Original assets were edited using ChatGPT for originality.
 // Credit for the original artwork belongs to its respective creators.
 
+void updateDataset(vector<FlockRecord>& dataset, VehicleInfo attributes) {
+
+    // searches for an existing license plate
+    for (int i = 0; i < dataset.size(); i++) {
+
+        if (dataset[i].vehicle.licensePlate == attributes.licensePlate) {
+
+            // upd the existing record
+            dataset[i].vehicle = attributes;
+            dataset[i].lastDetected = GetTime();
+            dataset[i].detectionCount++;
+
+            return;
+        }
+    }
+
+    // create  a  new record  if  there's no plate
+    FlockRecord record;
+
+    record.vehicle = attributes;
+    record.lastDetected = GetTime();
+    record.detectionCount = 1;
+
+    dataset.push_back(record);
+}
+
+
+void printDataset(vector<FlockRecord>& dataset, string title) {
+    cout << title << endl;
+
+    if (dataset.empty()) {
+        cout << "No vehicles recorded." << endl;
+    }
+
+    for (int i = 0; i < dataset.size(); i++) {
+        cout << "Plate: " << dataset[i].vehicle.licensePlate << endl;
+        cout << "Make: " << dataset[i].vehicle.make << endl;
+        cout << "Color: " << dataset[i].vehicle.color << endl;
+        cout << "Speed: " << dataset[i].vehicle.speed << endl;
+        cout << "Last Detected: " << dataset[i].lastDetected << endl;
+        cout << "Detections: " << dataset[i].detectionCount << endl;
+    }
+}
 
 int main() {
 
@@ -92,6 +135,21 @@ int main() {
         bool collision = false;
 
         for (FlockCamera& camera : cameras) {
+            camera.resetColor();
+            
+            if (camera.scanVehicle(car1)) {
+                VehicleInfo info = car1.getVehicleInfo();
+
+                updateDataset(allVehicles, info);
+
+                if (info.speed > SPEED_LIMIT) {
+                    updateDataset(speedingVehicles, info);
+                }
+
+                printDataset(allVehicles, "ALL VEHICLES");
+                printDataset(speedingVehicles, "SPEEDING VEHICLES");
+            }
+
             camera.drawCamera();
 
             if (camera.isVehicleInRange(car1)) {

@@ -2,9 +2,11 @@
 #define VEHICLE_H
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "raylib.h"
 #include "Globals.h"
-#include "FlockCamera.h"
+
+
 
 class Vehicle {
 private: // these private  fields are attributes for our cars, we plan to add more identification attributes like car  color and  make if  time permits
@@ -18,6 +20,8 @@ private: // these private  fields are attributes for our cars, we plan to add mo
     std::string licensePlate;
 public:
     Vehicle(float startX, float startY, std::string make, std::string color);
+
+    VehicleInfo getVehicleInfo();
 
     void drawVehicle();
     

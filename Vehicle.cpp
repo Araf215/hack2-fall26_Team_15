@@ -4,8 +4,20 @@
 using namespace std;
 #include "Globals.h"
 #include "FlockCamera.h"
+#include <cmath>
 
 // Class Vehicle
+
+VehicleInfo Vehicle::getVehicleInfo() {
+    VehicleInfo attributes;
+
+    attributes.licensePlate = licensePlate;
+    attributes.make = carMake;
+    attributes.color = carColor;
+    attributes.speed = sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
+
+    return attributes;
+};
 
 Vehicle::Vehicle(float startX, float startY, string make, string color)
             : x(startX), y(startY),
