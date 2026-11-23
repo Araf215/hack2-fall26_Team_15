@@ -13,6 +13,7 @@ This project is being developed for hackathon #2 and is inspired by Kate Crawfor
 Our goal is to create an original, interactive c++ application exploring the relationship between technology, society, and the concepts of abstraction, efficiency, or recursion.
 
 **Project Title:**
+
 FlockWatch
 
 **Project Description:**
