@@ -30,7 +30,7 @@ Vehicle::Vehicle() {
     else if (temploc==1) {x=0;y=700;angle=0.0f;xSpeed=1.0f;ySpeed=0.0f;}
     else if (temploc==2) {x=900;y=205;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
     else if (temploc==3) {x=890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=1.0f;}
-    else if (temploc==4) {x=155;y=380;angle=30.0f;xSpeed=0.867f;ySpeed=0.40f;}
+    else if (temploc==4) {x=155;y=380;angle=30.0f;xSpeed=0.867f;ySpeed=0.415f;}
     else if (temploc==5) {x=1180;y=235;angle=-30.0f;xSpeed=0.867f;ySpeed=-0.40f;}
     xSpeed *= speedingMultiplier;
     ySpeed *= speedingMultiplier;
