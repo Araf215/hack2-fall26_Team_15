@@ -24,7 +24,6 @@ class VehicleInfo {
 class FlockRecord {
     public:
         VehicleInfo vehicle; // stores information of a detected vehicle
-        double lastDetected; // stores the time when the vehicle was last detected
         int detectionCount; // stores the amount of times the vehicle was detected
 };
 

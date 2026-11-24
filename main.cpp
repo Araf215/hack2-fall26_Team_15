@@ -26,7 +26,6 @@ void updateDataset(vector<FlockRecord>& dataset, VehicleInfo attributes) {
 
             // updates the existing record with the newest information
             dataset[i].vehicle = attributes;
-            dataset[i].lastDetected = GetTime();
             dataset[i].detectionCount++;
 
             return; // stops function when the existing record is updated
@@ -37,34 +36,37 @@ void updateDataset(vector<FlockRecord>& dataset, VehicleInfo attributes) {
     FlockRecord record;
 
     record.vehicle = attributes; // stores detected vehicle information in the new record
-    record.lastDetected = GetTime(); // stores the current time as the vehicle's first detection time
     record.detectionCount = 1; // sets detection count to 1 to signal first detection
 
     dataset.push_back(record); // appends the new record to dataset vector
 }
 
 // prints out the information stored in a dataset
+
 void printDataset(vector<FlockRecord>& dataset, string title) {
-    cout << title << endl; // prints out title of the dataset
+    cout << title << endl; // title of the resepctive dataset so basically all vehicles or speeding
 
-    // check if the dataset is empty
-    if (dataset.empty()) {
-        cout << "No vehicles recorded." << endl; // prints out if there are no vehicles in the dataset
-    }
+    cout << "Plate\t\tMake\tColor\tSpeed\tDetections" << endl; // \t = tab
+    cout << "------------------------------------------------------------------------" << endl;
 
-
-    // this for loop is used to loop through each vehicle record in the dataset
     for (int i = 0; i < dataset.size(); i++) {
-        cout << "Plate: " << dataset[i].vehicle.licensePlate << endl; // prints out license plate
-        cout << "Make: " << dataset[i].vehicle.make << endl; // prints out the make of the car
-        cout << "Color: " << dataset[i].vehicle.color << endl; // prints out car color
-        cout << "Speed: " << dataset[i].vehicle.speed << endl; // prints out speed of the car
-        cout << "Last Detected: " << dataset[i].lastDetected << endl; // prints out the time the car was last detected
-        cout << "Detections: " << dataset[i].detectionCount << endl; // prints out how much times the car was detected 
 
-        cout << endl;
+        // Print one row for each vehicle
+        cout << dataset[i].vehicle.licensePlate << "\t"
+             << dataset[i].vehicle.make << "\t"
+             << dataset[i].vehicle.color << "\t"
+             << dataset[i].vehicle.speed << "\t"
+             << dataset[i].detectionCount << endl;
     }
+
+    if (dataset.empty()) {
+        cout << "No vehicles recorded." << endl;
+    }
+
+    cout << endl;
 }
+
+
 
 int main() {
 
@@ -121,6 +123,7 @@ int main() {
     // // prints out car 1's make, color, and license plate
     // cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
+    double lastPrint = GetTime();
 
     while (!WindowShouldClose()) {  // while window is open
         BeginDrawing(); // start drawing animation
@@ -131,18 +134,15 @@ int main() {
 
        DrawTexturePro(Map, source, dest, {0, 0}, 0.0f, WHITE); // load map
 
-       Vector2 mouse = GetMousePosition(); // Gets current position of the mouse
-       DrawText(TextFormat("X: %.0f, Y: %.0f", mouse.x, mouse.y), 25,20, 20, BLACK); //temp draw text to help us identify coords better
+       if (GetTime() - lastPrint >= 10) { //print every 10 seconds
 
+        cout << "\n\n\n\n\n\n\n\n\n\n"; // tried researching ways on how to clear out the terminal automatically, but the
 
-        // // Draws the vehicles and gives them behavior
-        // car1.drawVehicle();
+        printDataset(allVehicles, "====== ALL VEHICLES ======");
+        printDataset(speedingVehicles, "====== SPEEDING VEHICLES ======");
 
-        // // Update the vehicle's position
-        // car1.moveVehicle();
-        
-        // // corrects the vehicle's position if necessary
-        // car1.applyCorrection();
+        lastPrint = GetTime();
+        }
 
         // go through the cars on screen and apply necessary functions
         for (int i=0;i<(int)cars.size();i++) {
@@ -170,11 +170,6 @@ int main() {
                     if (info.speed > SPEED_LIMIT) {
                         updateDataset(speedingVehicles, info); // updates speedingVehicles dataset with this vehicle
                     }
-
-
-                    printDataset(allVehicles, "====== ALL VEHICLES ======"); // prints out all recorded vehicles
-                    cout << endl;
-                    printDataset(speedingVehicles, "====== SPEEDING VEHICLES ======"); // prints out all recorded speeding vehicles
                 }
             }
 

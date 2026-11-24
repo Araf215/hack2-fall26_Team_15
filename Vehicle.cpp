@@ -39,7 +39,7 @@ Vehicle::Vehicle() {
     // choose car make (ik its not good to do it in the constructor like this - this project is quite small)
     if      (make==0) {carMake = "Toyota";}
     else if (make==1) {carMake = "BMW";}
-    else if (make==2) {carMake = "Mercedes";}
+    else if (make==2) {carMake = "Volvo";}
     else if (make==3) {carMake = "Honda";}
 
     generateLicensePlate(); // generates a unique license plate
