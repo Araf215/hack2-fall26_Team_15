@@ -29,7 +29,7 @@ Vehicle::Vehicle() {
     if (temploc==0) {x = 0;y=360;angle = 0.0f;xSpeed=1.0f;ySpeed=0.0f;}
     else if (temploc==1) {x=0;y=700;angle=0.0f;xSpeed=1.0f;ySpeed=0.0f;}
     else if (temploc==2) {x=900;y=180;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
-    else if (temploc==3) {x==890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=-1.0f;}
+    else if (temploc==3) {x=890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=-1.0f;}
     xSpeed *= speedingMultiplier;
     ySpeed *= speedingMultiplier;
     // assign colors to the car
@@ -37,10 +37,13 @@ Vehicle::Vehicle() {
     if (tempColor==1) {carColor = "Green";}
     if (tempColor==2) {carColor = "Blue";}
     // choose car make (ik its not good to do it in the constructor like this - this project is quite small)
-    if      (make==0) carMake = "Toyota";
-    else if (make==1) carMake = "BMW";
-    else if (make==2) carMake = "Mercedes";
-    else if (make==3) carMake = "Honda";
+    if      (make==0) {carMake = "Toyota";}
+    else if (make==1) {carMake = "BMW";}
+    else if (make==2) {carMake = "Mercedes";}
+    else if (make==3) {carMake = "Honda";}
+
+    generateLicensePlate(); // generates a unique license plate
+
 }
 
 // constructor for the vehicle class

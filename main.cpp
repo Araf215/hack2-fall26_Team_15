@@ -61,6 +61,8 @@ void printDataset(vector<FlockRecord>& dataset, string title) {
         cout << "Speed: " << dataset[i].vehicle.speed << endl; // prints out speed of the car
         cout << "Last Detected: " << dataset[i].lastDetected << endl; // prints out the time the car was last detected
         cout << "Detections: " << dataset[i].detectionCount << endl; // prints out how much times the car was detected 
+
+        cout << endl;
     }
 }
 
@@ -152,6 +154,7 @@ int main() {
         // collision is initially set to false
         bool collision = false;
 
+
         // Draw cameras and check collisions
         for (FlockCamera& camera : cameras) {
             camera.resetColor(); // resets camera color before checking a new detection
@@ -168,8 +171,10 @@ int main() {
                         updateDataset(speedingVehicles, info); // updates speedingVehicles dataset with this vehicle
                     }
 
-                    printDataset(allVehicles, "ALL VEHICLES"); // prints out all recorded vehicles
-                    printDataset(speedingVehicles, "SPEEDING VEHICLES"); // prints out all recorded speeding vehicles
+
+                    printDataset(allVehicles, "====== ALL VEHICLES ======"); // prints out all recorded vehicles
+                    cout << endl;
+                    printDataset(speedingVehicles, "====== SPEEDING VEHICLES ======"); // prints out all recorded speeding vehicles
                 }
             }
 

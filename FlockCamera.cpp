@@ -33,6 +33,7 @@ bool FlockCamera::scanVehicle(Vehicle car) {
         else {
             cameraColor = GREEN; // changes camera color to green if the vehicle is not speeding
         }
+
         return true; // return true since this is a new detection of the vehicle
     }
 
@@ -45,6 +46,7 @@ FlockCamera::FlockCamera(int cx, int cy, float crange)
 
 // draws camera and detection circle on the screen
 void FlockCamera::drawCamera() {
+
     DrawCircle(x, y, range, Fade(cameraColor, 0.3f)); // draws filled circle representing the camera's detection range
     DrawCircleLines(x, y, range, cameraColor); // draws outline of the detection circle
     DrawCircle(x, y, 8.0f, cameraColor); // draws a small filled circle at camera's position
