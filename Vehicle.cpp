@@ -22,14 +22,16 @@ VehicleInfo Vehicle::getVehicleInfo() {
 
 // default constructor
 Vehicle::Vehicle() {
-    int temploc = rand() % 4; // use a number to randomly choose a predetermined position to start
+    int temploc = rand() % 6; // use a number to randomly choose a predetermined position to start
     int tempColor = rand() % 3;
     int speedingMultiplier = rand() % 2 + 1; // multiplies speed to make some vehicles speed
     int make = rand() % 4;
     if (temploc==0) {x = 0;y=360;angle = 0.0f;xSpeed=1.0f;ySpeed=0.0f;}
     else if (temploc==1) {x=0;y=700;angle=0.0f;xSpeed=1.0f;ySpeed=0.0f;}
-    else if (temploc==2) {x=900;y=180;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
-    else if (temploc==3) {x=890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=-1.0f;}
+    else if (temploc==2) {x=900;y=205;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
+    else if (temploc==3) {x=890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=1.0f;}
+    else if (temploc==4) {x=155;y=380;angle=30.0f;xSpeed=0.867f;ySpeed=0.40f;}
+    else if (temploc==5) {x=1180;y=235;angle=-30.0f;xSpeed=0.867f;ySpeed=-0.40f;}
     xSpeed *= speedingMultiplier;
     ySpeed *= speedingMultiplier;
     // assign colors to the car

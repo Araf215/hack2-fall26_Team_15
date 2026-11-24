@@ -131,8 +131,11 @@ int main() {
         Rectangle source = { 0, 0, (float)Map.width, (float)Map.height }; // map
         Rectangle dest   = { 0, 0, 1500, 750 }; // map dimensions
 
-
        DrawTexturePro(Map, source, dest, {0, 0}, 0.0f, WHITE); // load map
+
+        // the following is for testing / workflow
+        Vector2 mouse = GetMousePosition(); // Gets current position of the mouse
+        DrawText(TextFormat("X: %.0f, Y: %.0f", mouse.x, mouse.y), 25,20, 20, BLACK); //temp draw text to help us identify coords better
 
        if (GetTime() - lastPrint >= 10) { //print every 10 seconds
 
