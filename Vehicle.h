@@ -19,6 +19,8 @@ private: // these private  fields are attributes for our cars, we plan to add mo
     std::string carColor; // stores the color of the vehicle
     std::string licensePlate; // stores the license plate of the vehicle
 public:
+    Vehicle(); // default constructor
+
     Vehicle(float startX, float startY, std::string make, std::string color); // constructor that creates vehicle with starting position, make, and color
 
     VehicleInfo getVehicleInfo(); // returns VehicleInfo structure with vehicle information
@@ -47,6 +49,9 @@ public:
     
     // flip speed of Vehicles to come back upon exiting maxX, maxY
     void applyCorrection();
+
+    // check if car is out of bounds
+    bool isCarOutside();
 
     Rectangle getHitBox(); // returns rectangle representing the vehicle's hitbox
 

@@ -20,6 +20,29 @@ VehicleInfo Vehicle::getVehicleInfo() {
     return attributes; // returns completed attributes
 };
 
+// default constructor
+Vehicle::Vehicle() {
+    int temploc = rand() % 4; // use a number to randomly choose a predetermined position to start
+    int tempColor = rand() % 3;
+    int speedingMultiplier = rand() % 2 + 1; // multiplies speed to make some vehicles speed
+    int make = rand() % 4;
+    if (temploc==0) {x = 0;y=360;angle = 0.0f;xSpeed=1.0f;ySpeed=0.0f;}
+    else if (temploc==1) {x=0;y=700;angle=0.0f;xSpeed=1.0f;ySpeed=0.0f;}
+    else if (temploc==2) {x=900;y=180;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
+    else if (temploc==3) {x==890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=-1.0f;}
+    xSpeed *= speedingMultiplier;
+    ySpeed *= speedingMultiplier;
+    // assign colors to the car
+    if (tempColor==0) {carColor = "Red";}
+    if (tempColor==1) {carColor = "Green";}
+    if (tempColor==2) {carColor = "Blue";}
+    // choose car make (ik its not good to do it in the constructor like this - this project is quite small)
+    if      (make==0) carMake = "Toyota";
+    else if (make==1) carMake = "BMW";
+    else if (make==2) carMake = "Mercedes";
+    else if (make==3) carMake = "Honda";
+}
+
 // constructor for the vehicle class
 Vehicle::Vehicle(float startX, float startY, string make, string color)
             : x(startX), y(startY), // starting coordinates for x and y
@@ -134,6 +157,15 @@ void Vehicle::applyCorrection() {
         ySpeed = -absYSpeed; // makes vertical speed negative so vehicle moves upward
         turnUp(); // turns the vehicle to face upward
     }
+}
+
+bool Vehicle::isCarOutside() {
+
+    x += 0;
+
+    if (x<0||x>maxX||y<0||y>maxY) return true;
+
+    return false;
 }
 
 // creates a rectangle to represent the vehicle's hitbox

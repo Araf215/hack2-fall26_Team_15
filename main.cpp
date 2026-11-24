@@ -111,8 +111,13 @@ int main() {
     // Car 1's position is at (200, 355) and is a Green (Color) Toyota (Make)
     Vehicle car1(200, 355, "Toyota", "Green");
     car1.setSpeed(1, 0); // sets car 1's spped
-    // prints out car 1's make, color, and license plate
-    cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
+    // vector of vehicles
+    vector <Vehicle> cars;
+    cars.push_back(car1); // always gonna start the program with car 1
+    // fill the vector with vehicles until the appropriate amount is on screen
+    while ((int)cars.size()<maxCarsOnScreen) {cars.push_back(Vehicle());}
+    // // prints out car 1's make, color, and license plate
+    // cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
 
     while (!WindowShouldClose()) {  // while window is open
@@ -125,16 +130,24 @@ int main() {
        DrawTexturePro(Map, source, dest, {0, 0}, 0.0f, WHITE); // load map
 
        Vector2 mouse = GetMousePosition(); // Gets current position of the mouse
+       DrawText(TextFormat("X: %.0f, Y: %.0f", mouse.x, mouse.y), 25,20, 20, BLACK); //temp draw text to help us identify coords better
 
 
-        // Draws the vehicles and gives them behavior
-        car1.drawVehicle();
+        // // Draws the vehicles and gives them behavior
+        // car1.drawVehicle();
 
-        // Update the vehicle's position
-        car1.moveVehicle();
+        // // Update the vehicle's position
+        // car1.moveVehicle();
         
-        // corrects the vehicle's position if necessary
-        car1.applyCorrection();
+        // // corrects the vehicle's position if necessary
+        // car1.applyCorrection();
+
+        // go through the cars on screen and apply necessary functions
+        for (int i=0;i<(int)cars.size();i++) {
+            cars.at(i).drawVehicle();
+            cars.at(i).moveVehicle();
+            if (cars.at(i).isCarOutside()) {cars.at(i) = Vehicle();continue;}
+        }
 
         // collision is initially set to false
         bool collision = false;
@@ -144,25 +157,29 @@ int main() {
             camera.resetColor(); // resets camera color before checking a new detection
             
             // checks if car 1 is detected by the camera
-            if (camera.scanVehicle(car1)) { 
-                VehicleInfo info = car1.getVehicleInfo(); // gets car 1's information and stores it in info
+            for (Vehicle& car : cars) {
+                if (camera.scanVehicle(car)) { 
+                    VehicleInfo info = car.getVehicleInfo(); // gets car 1's information and stores it in info
 
-                updateDataset(allVehicles, info); // updates allVehicles dataset with the detected vehicle
+                    updateDataset(allVehicles, info); // updates allVehicles dataset with the detected vehicle
 
-                // checks if the detected vehicle's speed goes over the speed limit
-                if (info.speed > SPEED_LIMIT) {
-                    updateDataset(speedingVehicles, info); // updates speedingVehicles dataset with this vehicle
+                    // checks if the detected vehicle's speed goes over the speed limit
+                    if (info.speed > SPEED_LIMIT) {
+                        updateDataset(speedingVehicles, info); // updates speedingVehicles dataset with this vehicle
+                    }
+
+                    printDataset(allVehicles, "ALL VEHICLES"); // prints out all recorded vehicles
+                    printDataset(speedingVehicles, "SPEEDING VEHICLES"); // prints out all recorded speeding vehicles
                 }
-
-                printDataset(allVehicles, "ALL VEHICLES"); // prints out all recorded vehicles
-                printDataset(speedingVehicles, "SPEEDING VEHICLES"); // prints out all recorded speeding vehicles
             }
 
             camera.drawCamera(); // draws camera onto the screen
 
             // checks if the vehicle is inside the camera's range
-            if (camera.isVehicleInRange(car1)) {
-                collision = true; // sets collision to true
+            for (Vehicle& car : cars) {
+                if (camera.isVehicleInRange(car)) {
+                    collision = true; // sets collision to true
+                }
             }
         }
 

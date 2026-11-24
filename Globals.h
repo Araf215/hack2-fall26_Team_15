@@ -39,4 +39,6 @@ inline Texture2D Map; // declaration of Map image
 inline const int maxX = 1500; // set max horizontal position the cars can travel to
 inline const int maxY = 750; // set max vertical position the cars can travel to
 
+inline const int maxCarsOnScreen = 4;
+
 #endif
