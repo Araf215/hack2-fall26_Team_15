@@ -4,9 +4,6 @@
 #include <string>
 #include <vector>
 
-// creates a black circle with 30% opacity
-#define FLOCK_CIRCLE_FADE Fade(BLACK, 0.3f)
-
 const float SPEED_LIMIT = 1.5f; // sets the speed limit to 1.5
 
 // class to store vehicle information

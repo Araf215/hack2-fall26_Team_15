@@ -1,9 +1,9 @@
 #include "raylib.h"
 #include <string>
-using namespace std;
 #include "Globals.h"
 #include "Vehicle.h"
 #include "FlockCamera.h"
+using namespace std;
 
 // Class FlockCamera
 
@@ -27,6 +27,7 @@ bool FlockCamera::scanVehicle(Vehicle car) {
     if (detected) { // checks if the vehicle is within the camera's range
         carsInside.push_back(plate); // appends the vehicle's license plate into carsInside
         VehicleInfo attribute = car.getVehicleInfo(); // gets the vehicle's information and stores it into attribute
+        
         if (attribute.speed > SPEED_LIMIT) { // checks if the vehicle's speed is greater than the speed limit
             cameraColor = RED; // changes camera color to red if the vehicle is speeding
         }
@@ -50,6 +51,7 @@ void FlockCamera::drawCamera() {
     DrawCircle(x, y, range, Fade(cameraColor, 0.3f)); // draws filled circle representing the camera's detection range
     DrawCircleLines(x, y, range, cameraColor); // draws outline of the detection circle
     DrawCircle(x, y, 8.0f, cameraColor); // draws a small filled circle at camera's position
+
 }
 
 // resets the camera's color

@@ -2,10 +2,8 @@
 #define VEHICLE_H
 #include <iostream>
 #include <string>
-#include <cmath>
-#include "raylib.h"
 #include "Globals.h"
-
+#include "raylib.h"
 
 
 class Vehicle {

@@ -1,10 +1,9 @@
 #include "Vehicle.h"
 #include "raylib.h"
 #include <string>
-using namespace std;
 #include "Globals.h"
-#include "FlockCamera.h"
 #include <cmath>
+using namespace std;
 
 // Class Vehicle
 
@@ -26,23 +25,26 @@ Vehicle::Vehicle() {
     int tempColor = rand() % 3;
     int speedingMultiplier = rand() % 2 + 1; // multiplies speed to make some vehicles speed
     int make = rand() % 4;
-    if (temploc==0) {x = 0;y=360;angle = 0.0f;xSpeed=1.0f;ySpeed=0.0f;}
-    else if (temploc==1) {x=0;y=700;angle=0.0f;xSpeed=1.0f;ySpeed=0.0f;}
-    else if (temploc==2) {x=900;y=205;angle=180.0f;xSpeed=-1.0f;ySpeed=0.0f;}
-    else if (temploc==3) {x=890;y=45;angle=270.0f;xSpeed=0.0f;ySpeed=1.0f;}
-    else if (temploc==4) {x=155;y=380;angle=30.0f;xSpeed=0.867f;ySpeed=0.415f;}
-    else if (temploc==5) {x=1180;y=235;angle=-30.0f;xSpeed=0.867f;ySpeed=-0.40f;}
+    
+    if (temploc == 0) {x = 0; y = 360; angle = 0.0f; xSpeed = 1.0f; ySpeed = 0.0f;}
+    else if (temploc == 1) {x = 0; y = 700; angle = 0.0f; xSpeed = 1.0f; ySpeed = 0.0f;}
+    else if (temploc == 2) {x = 900; y = 205; angle = 180.0f; xSpeed = -1.0f; ySpeed = 0.0f;}
+    else if (temploc == 3) {x = 890; y = 45; angle = 270.0f; xSpeed = 0.0f; ySpeed = 1.0f;}
+    else if (temploc == 4) {x = 155; y = 380; angle = 30.0f; xSpeed = 0.867f; ySpeed = 0.415f;}
+    else if (temploc == 5) {x = 1180; y = 235; angle = -30.0f; xSpeed = 0.867f; ySpeed= -0.40f;}
+    
     xSpeed *= speedingMultiplier;
     ySpeed *= speedingMultiplier;
+    
     // assign colors to the car
-    if (tempColor==0) {carColor = "Red";}
-    if (tempColor==1) {carColor = "Green";}
-    if (tempColor==2) {carColor = "Blue";}
+    if (tempColor == 0) {carColor = "Red";}
+    if (tempColor == 1) {carColor = "Green";}
+    if (tempColor == 2) {carColor = "Blue";}
     // choose car make (ik its not good to do it in the constructor like this - this project is quite small)
-    if      (make==0) {carMake = "Toyota";}
-    else if (make==1) {carMake = "BMW";}
-    else if (make==2) {carMake = "Volvo";}
-    else if (make==3) {carMake = "Honda";}
+    if      (make == 0) {carMake = "Toyota";}
+    else if (make == 1) {carMake = "BMW";}
+    else if (make == 2) {carMake = "Volvo";}
+    else if (make == 3) {carMake = "Honda";}
 
     generateLicensePlate(); // generates a unique license plate
 
@@ -92,27 +94,26 @@ string Vehicle::getCarColor() {
 // generates random license plate
 string Vehicle::generateLicensePlate() {
 
-        string plate = ""; // empty string created that will contain the license plate
+    string plate = ""; // empty string created that will contain the license plate
 
-        // for loop runs 3 times to generate three random letters
-        for (int i = 0;  i < 3;  i++)  {
-            plate += ('A' + rand() % 26); // stores random letters into plate
+    // for loop runs 3 times to generate three random letters
+    for (int i = 0;  i < 3;  i++)  {
+        plate += ('A' + rand() % 26); // stores random letters into plate
 
-        }
-
-        // adds hyphen between the letters and numbers
-        plate +=  '-';
-
-        // for loop runs 4 times to generate 4 random numbers
-        for (int i = 0;  i < 4;  i++)  {
-            plate += ('0' + rand() % 10); // stores random numbers into plate
-        }
-
-        licensePlate = plate; // stores completed license plate inside Vehicle object
-        
-        return plate; // returns completed license plate
-    
     }
+
+    // adds hyphen between the letters and numbers
+    plate +=  '-';
+
+     // for loop runs 4 times to generate 4 random numbers
+    for (int i = 0;  i < 4;  i++)  {
+        plate += ('0' + rand() % 10); // stores random numbers into plate
+    }
+
+    licensePlate = plate; // stores completed license plate inside Vehicle object
+        
+    return plate; // returns completed license plate  
+}
 
 // moves the vehicle by a specified amount
 void Vehicle::moveVehicle(float xAmount, float yAmount) {
@@ -168,7 +169,7 @@ bool Vehicle::isCarOutside() {
 
     x += 0;
 
-    if (x<0||x>maxX||y<0||y>maxY) return true;
+    if (x < 0 || x > maxX || y < 0 || y > maxY) {return true;}
 
     return false;
 }

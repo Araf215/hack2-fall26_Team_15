@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include "raylib.h"
 #include <ctime>
 #include "Globals.h"
@@ -114,13 +115,13 @@ int main() {
     
     // Car 1's position is at (200, 355) and is a Green (Color) Toyota (Make)
     Vehicle car1(200, 355, "Toyota", "Green");
+    
     car1.setSpeed(1, 0); // sets car 1's spped
-    // vector of vehicles
-    vector <Vehicle> cars;
+    vector <Vehicle> cars; // vector of vehicles
     cars.push_back(car1); // always gonna start the program with car 1
     // fill the vector with vehicles until the appropriate amount is on screen
     while ((int)cars.size()<maxCarsOnScreen) {cars.push_back(Vehicle());}
-    // // prints out car 1's make, color, and license plate
+    // prints out car 1's make, color, and license plate
     // cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
     double lastPrint = GetTime();
@@ -139,7 +140,7 @@ int main() {
 
        if (GetTime() - lastPrint >= 10) { //print every 10 seconds
 
-        cout << "\n\n\n\n\n\n\n\n\n\n"; // tried researching ways on how to clear out the terminal automatically, but the
+        cout << "\n\n\n\n\n\n\n\n";
 
         printDataset(allVehicles, "====== ALL VEHICLES ======");
         printDataset(speedingVehicles, "====== SPEEDING VEHICLES ======");
@@ -148,15 +149,13 @@ int main() {
         }
 
         // go through the cars on screen and apply necessary functions
-        for (int i=0;i<(int)cars.size();i++) {
+        for (int i = 0; i < (int)cars.size(); i++) {
             cars.at(i).drawVehicle();
             cars.at(i).moveVehicle();
             if (cars.at(i).isCarOutside()) {cars.at(i) = Vehicle();continue;}
         }
 
-        // collision is initially set to false
         bool collision = false;
-
 
         // Draw cameras and check collisions
         for (FlockCamera& camera : cameras) {
