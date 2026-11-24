@@ -14,70 +14,76 @@ using namespace std;
 // Original assets were edited using ChatGPT for originality.
 // Credit for the original artwork belongs to its respective creators.
 
+// dataset vector is used to contain vehicle records
+// attributes is used to contain the information of the vehicle detected
 void updateDataset(vector<FlockRecord>& dataset, VehicleInfo attributes) {
 
     // searches for an existing license plate
     for (int i = 0; i < dataset.size(); i++) {
 
+        // checks if the license plate of the current record matches the detected vehicle
         if (dataset[i].vehicle.licensePlate == attributes.licensePlate) {
 
-            // upd the existing record
+            // updates the existing record with the newest information
             dataset[i].vehicle = attributes;
             dataset[i].lastDetected = GetTime();
             dataset[i].detectionCount++;
 
-            return;
+            return; // stops function when the existing record is updated
         }
     }
 
-    // create  a  new record  if  there's no plate
+    // create a new record if there is no license plate
     FlockRecord record;
 
-    record.vehicle = attributes;
-    record.lastDetected = GetTime();
-    record.detectionCount = 1;
+    record.vehicle = attributes; // stores detected vehicle information in the new record
+    record.lastDetected = GetTime(); // stores the current time as the vehicle's first detection time
+    record.detectionCount = 1; // sets detection count to 1 to signal first detection
 
-    dataset.push_back(record);
+    dataset.push_back(record); // appends the new record to dataset vector
 }
 
-
+// prints out the information stored in a dataset
 void printDataset(vector<FlockRecord>& dataset, string title) {
-    cout << title << endl;
+    cout << title << endl; // prints out title of the dataset
 
+    // check if the dataset is empty
     if (dataset.empty()) {
-        cout << "No vehicles recorded." << endl;
+        cout << "No vehicles recorded." << endl; // prints out if there are no vehicles in the dataset
     }
 
+
+    // this for loop is used to loop through each vehicle record in the dataset
     for (int i = 0; i < dataset.size(); i++) {
-        cout << "Plate: " << dataset[i].vehicle.licensePlate << endl;
-        cout << "Make: " << dataset[i].vehicle.make << endl;
-        cout << "Color: " << dataset[i].vehicle.color << endl;
-        cout << "Speed: " << dataset[i].vehicle.speed << endl;
-        cout << "Last Detected: " << dataset[i].lastDetected << endl;
-        cout << "Detections: " << dataset[i].detectionCount << endl;
+        cout << "Plate: " << dataset[i].vehicle.licensePlate << endl; // prints out license plate
+        cout << "Make: " << dataset[i].vehicle.make << endl; // prints out the make of the car
+        cout << "Color: " << dataset[i].vehicle.color << endl; // prints out car color
+        cout << "Speed: " << dataset[i].vehicle.speed << endl; // prints out speed of the car
+        cout << "Last Detected: " << dataset[i].lastDetected << endl; // prints out the time the car was last detected
+        cout << "Detections: " << dataset[i].detectionCount << endl; // prints out how much times the car was detected 
     }
 }
 
 int main() {
 
-    srand(time(0));
+    srand(time(0)); // generates random values
 
     // Window size
     InitWindow(1500, 750, "FlockWatch");
-    SetTargetFPS(60); //Set FPS
+    SetTargetFPS(60); // Set FPS
 
-    CarGreen = LoadTexture("cars/car_green.png");
-    CarBlue = LoadTexture("cars/car_blue.png");
-    CarRed = LoadTexture("cars/car_red.png");
-    Map = LoadTexture("Map.png"); // Map img
+    CarGreen = LoadTexture("cars/car_green.png"); // Loads green car image
+    CarBlue = LoadTexture("cars/car_blue.png"); // Loads blue car image
+    CarRed = LoadTexture("cars/car_red.png"); // Loads red car image
+    Map = LoadTexture("Map.png"); // Loads Map image
     
-    // if map didn't load close window
+    // if map did not load, close window
     if (Map.id == 0) {
         CloseWindow();
         return -1;
     }
 
-    // spawn cameras and cars
+    // spawns Flock cameras all over the map
     vector<FlockCamera> cameras = {
         // Upper street
         FlockCamera(110, 168),
@@ -102,14 +108,15 @@ int main() {
         FlockCamera(892, 690)
     };
     
-    // Vehicle car1 = Vehicle(200,175);
+    // Car 1's position is at (200, 355) and is a Green (Color) Toyota (Make)
     Vehicle car1(200, 355, "Toyota", "Green");
-    car1.setSpeed(1,0);
+    car1.setSpeed(1, 0); // sets car 1's spped
+    // prints out car 1's make, color, and license plate
     cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
 
-    while (!WindowShouldClose()) {  //while window's open
-        BeginDrawing(); // start drawing anim
+    while (!WindowShouldClose()) {  // while window is open
+        BeginDrawing(); // start drawing animation
 
         Rectangle source = { 0, 0, (float)Map.width, (float)Map.height }; // map
         Rectangle dest   = { 0, 0, 1500, 750 }; // map dimensions
@@ -117,44 +124,49 @@ int main() {
 
        DrawTexturePro(Map, source, dest, {0, 0}, 0.0f, WHITE); // load map
 
-       Vector2 mouse = GetMousePosition(); //temp mouse position
+       Vector2 mouse = GetMousePosition(); // Gets current position of the mouse
 
 
-        // draw the flock cameras and vehicles and give them behavior
-        // Draw the vehicle
+        // Draws the vehicles and gives them behavior
         car1.drawVehicle();
 
-        // Update the vehicle
+        // Update the vehicle's position
         car1.moveVehicle();
+        
+        // corrects the vehicle's position if necessary
         car1.applyCorrection();
 
-        // Draw cameras and check collisions
+        // collision is initially set to false
         bool collision = false;
 
+        // Draw cameras and check collisions
         for (FlockCamera& camera : cameras) {
-            camera.resetColor();
+            camera.resetColor(); // resets camera color before checking a new detection
             
-            if (camera.scanVehicle(car1)) {
-                VehicleInfo info = car1.getVehicleInfo();
+            // checks if car 1 is detected by the camera
+            if (camera.scanVehicle(car1)) { 
+                VehicleInfo info = car1.getVehicleInfo(); // gets car 1's information and stores it in info
 
-                updateDataset(allVehicles, info);
+                updateDataset(allVehicles, info); // updates allVehicles dataset with the detected vehicle
 
+                // checks if the detected vehicle's speed goes over the speed limit
                 if (info.speed > SPEED_LIMIT) {
-                    updateDataset(speedingVehicles, info);
+                    updateDataset(speedingVehicles, info); // updates speedingVehicles dataset with this vehicle
                 }
 
-                printDataset(allVehicles, "ALL VEHICLES");
-                printDataset(speedingVehicles, "SPEEDING VEHICLES");
+                printDataset(allVehicles, "ALL VEHICLES"); // prints out all recorded vehicles
+                printDataset(speedingVehicles, "SPEEDING VEHICLES"); // prints out all recorded speeding vehicles
             }
 
-            camera.drawCamera();
+            camera.drawCamera(); // draws camera onto the screen
 
+            // checks if the vehicle is inside the camera's range
             if (camera.isVehicleInRange(car1)) {
-                collision = true;
+                collision = true; // sets collision to true
             }
         }
 
-       EndDrawing(); // end drawing anim
+       EndDrawing(); // end drawing animation
     }
 
     UnloadTexture(Map);
@@ -162,5 +174,6 @@ int main() {
     UnloadTexture(CarBlue);
     UnloadTexture(CarRed);
     CloseWindow();
+    
     return 0;
 }
