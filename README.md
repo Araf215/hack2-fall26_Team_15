@@ -83,6 +83,10 @@ https://www.geeksforgeeks.org/cpp/stdstringerase-in-cpp/
 
 Erase and Begin help prevent duplicate detentions by erasing detections after the first.  Geeks4Geeks helped teach us both of these vector properties.
 
+https://www.geeksforgeeks.org/cpp/references-in-cpp/
+
+We used the `&` symbol as reference. This allows direct access to objects without making copies.
+
 ### Visual Assets
 
 - **Car artwork:** [Y8 Games — Park This Car](https://www.y8.com/games/park_this_car). Original images modified using ChatGPT.
