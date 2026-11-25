@@ -74,6 +74,15 @@ https://calculatingempires.net/
 
 Inspired our exploration of tech abstraction, efficiency, mass surveillance, and the relationship between technology and privacy.
 
+### GeeksForGeeks
+https://www.geeksforgeeks.org/cpp/inline-functions-cpp/
+
+This was used to research about inline, which allows a function or variables to have multiple identifiers across files to prevent linker errors.
+
+https://www.geeksforgeeks.org/cpp/stdstringerase-in-cpp/
+
+Erase and Begin help prevent duplicate detentions by erasing detections after the first.  Geeks4Geeks helped teach us both of these vector properties.
+
 ### Visual Assets
 
 - **Car artwork:** [Y8 Games — Park This Car](https://www.y8.com/games/park_this_car). Original images modified using ChatGPT.
