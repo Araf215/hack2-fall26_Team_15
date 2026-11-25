@@ -158,7 +158,7 @@ int main() {
         for (FlockCamera& camera : cameras) {
             camera.resetColor(); // resets camera color before checking a new detection
             
-            for (Vehicle& car : cars) {
+            for (Vehicle& car : cars) { // https://www.geeksforgeeks.org/cpp/references-in-cpp/ we used the &  symbol as reference. This allows direct access to objects without making copies.
                 if (camera.scanVehicle(car)) { 
                     VehicleInfo info = car.getVehicleInfo(); // gets car information and stores it in info
 
