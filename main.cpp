@@ -67,8 +67,6 @@ void printDataset(vector<FlockRecord>& dataset, string title) {
     cout << endl;
 }
 
-
-
 int main() {
 
     srand(time(0)); // generates random values
@@ -121,8 +119,6 @@ int main() {
     cars.push_back(car1); // always gonna start the program with car 1
     // fill the vector with vehicles until the appropriate amount is on screen
     while ((int)cars.size()<maxCarsOnScreen) {cars.push_back(Vehicle());}
-    // prints out car 1's make, color, and license plate
-    // cout << car1.getCarMake() << " " << car1.getCarColor() << " " << car1.getLicensePlate() << endl;
 
     double lastPrint = GetTime();
 
@@ -134,11 +130,7 @@ int main() {
 
        DrawTexturePro(Map, source, dest, {0, 0}, 0.0f, WHITE); // load map
 
-        // // the following is for testing / workflow
-        // Vector2 mouse = GetMousePosition(); // Gets current position of the mouse
-        // DrawText(TextFormat("X: %.0f, Y: %.0f", mouse.x, mouse.y), 25,20, 20, BLACK); //temp draw text to help us identify coords better
-
-       if (GetTime() - lastPrint >= 10) { //print every 10 seconds
+       if (GetTime() - lastPrint >= 10) { // print every 10 seconds
 
         cout << "\n\n\n\n\n\n\n\n";
 

@@ -40,7 +40,7 @@ Vehicle::Vehicle() {
     if (tempColor == 0) {carColor = "Red";}
     if (tempColor == 1) {carColor = "Green";}
     if (tempColor == 2) {carColor = "Blue";}
-    // choose car make (ik its not good to do it in the constructor like this - this project is quite small)
+    // choose car make (it's not good to do it in the constructor like this - this project is quite small)
     if      (make == 0) {carMake = "Toyota";}
     else if (make == 1) {carMake = "BMW";}
     else if (make == 2) {carMake = "Volvo";}

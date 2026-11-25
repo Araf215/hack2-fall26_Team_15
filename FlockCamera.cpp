@@ -17,7 +17,7 @@ bool FlockCamera::scanVehicle(Vehicle car) {
         if (carsInside[i] == plate) { // checks if the vehicle's license plate is in the carsInside vector
 
             if (!detected) {
-                carsInside.erase(carsInside.begin() + i); // https://www.geeksforgeeks.org/cpp/stdstringerase-in-cpp/ erase and  begin help  prevent duplicate detentions by  erasing detections after  the first.  Geeks4Geeks helped teach us both of these vector properties.
+                carsInside.erase(carsInside.begin() + i); // CITATION: https://www.geeksforgeeks.org/cpp/stdstringerase-in-cpp/ erase and  begin help  prevent duplicate detentions by  erasing detections after  the first.  Geeks4Geeks helped teach us both of these vector properties.
             }
 
             return false; // returns false because the vehicle has already been recorded as being inside
