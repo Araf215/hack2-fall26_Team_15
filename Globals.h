@@ -13,8 +13,6 @@ class VehicleInfo {
         std::string color; // stores vehicle color
         std::string make; // stores vehicle make
         float speed; // stores vehicle speed
-
-
 };
 
 // class to store vehicle detection record
@@ -27,7 +25,6 @@ class FlockRecord {
 // CITATION: GeeksForGeeks was used to help with the codelines below using inline https://www.geeksforgeeks.org/cpp/inline-functions-cpp/
 inline std::vector<FlockRecord> allVehicles; // vector created to store records of all detected vehicles
 inline std::vector<FlockRecord> speedingVehicles; // vector created to store records of all detected speeding vehicles
-
 inline Texture2D CarGreen; // declaration of green car texture image
 inline Texture2D CarBlue; // declaration of blue car texture image
 inline Texture2D CarRed; // declaration of red car texture image

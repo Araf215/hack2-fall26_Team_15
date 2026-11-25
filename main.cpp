@@ -1,9 +1,11 @@
+// Libraries
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
 #include "raylib.h"
 #include <ctime>
+#include <iomanip>
 #include "Globals.h"
 #include "FlockCamera.h"
 #include "Vehicle.h"
@@ -45,6 +47,7 @@ void updateDataset(vector<FlockRecord>& dataset, VehicleInfo attributes) {
 // prints out the information stored in a dataset
 
 void printDataset(vector<FlockRecord>& dataset, string title) {
+    
     cout << title << endl; // title of the resepctive dataset so basically all vehicles or speeding
 
     cout << "Plate\t\tMake\tColor\tSpeed\tDetections" << endl; // \t = tab
@@ -56,7 +59,7 @@ void printDataset(vector<FlockRecord>& dataset, string title) {
         cout << dataset[i].vehicle.licensePlate << "\t"
              << dataset[i].vehicle.make << "\t"
              << dataset[i].vehicle.color << "\t"
-             << dataset[i].vehicle.speed << "\t"
+             << fixed << setprecision(3) << dataset[i].vehicle.speed << "\t"
              << dataset[i].detectionCount << endl;
     }
 
@@ -75,10 +78,10 @@ int main() {
     InitWindow(1500, 750, "FlockWatch");
     SetTargetFPS(60); // Set FPS
 
-    CarGreen = LoadTexture("cars/car_green.png"); // Loads green car image
-    CarBlue = LoadTexture("cars/car_blue.png"); // Loads blue car image
-    CarRed = LoadTexture("cars/car_red.png"); // Loads red car image
-    Map = LoadTexture("Map.png"); // Loads Map image
+    CarGreen = LoadTexture("cars/car_green.png"); // Loads green car asset
+    CarBlue = LoadTexture("cars/car_blue.png"); // Loads blue car asset
+    CarRed = LoadTexture("cars/car_red.png"); // Loads red car asset
+    Map = LoadTexture("Map.png"); // Loads Map asset
     
     // if map did not load, close window
     if (Map.id == 0) {
@@ -88,37 +91,36 @@ int main() {
 
     // spawns Flock cameras all over the map
     vector<FlockCamera> cameras = {
-        // Upper street
+        // upper street
         FlockCamera(110, 168),
         FlockCamera(360, 168),
         FlockCamera(892, 168),
         FlockCamera(1340, 168),
 
-        // Middle street
+        // middle street
         FlockCamera(200, 355),
         FlockCamera(445, 355),
         FlockCamera(892, 355),
         FlockCamera(1340, 355),
 
-        // Diagonal streets
+        // diagonal streets
         FlockCamera(350, 476),
         FlockCamera(529, 555),
 
-        // Bottom street
+        // bottom street
         FlockCamera(89, 690),
         FlockCamera(355, 690),
         FlockCamera(622, 690),
         FlockCamera(892, 690)
     };
     
-    // Car 1's position is at (200, 355) and is a Green (Color) Toyota (Make)
-    Vehicle car1(200, 355, "Toyota", "Green");
+
     
-    car1.setSpeed(1, 0); // sets car 1's spped
     vector <Vehicle> cars; // vector of vehicles
-    cars.push_back(car1); // always gonna start the program with car 1
     // fill the vector with vehicles until the appropriate amount is on screen
-    while ((int)cars.size()<maxCarsOnScreen) {cars.push_back(Vehicle());}
+    while ((int)cars.size() < maxCarsOnScreen) {
+        cars.push_back(Vehicle());
+    }
 
     double lastPrint = GetTime();
 
@@ -132,7 +134,7 @@ int main() {
 
        if (GetTime() - lastPrint >= 10) { // print every 10 seconds
 
-        cout << "\n\n\n\n\n\n\n\n";
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; // clear terminal. Unfortunately couldn't really understand the escape sequence documentation. 
 
         printDataset(allVehicles, "====== ALL VEHICLES ======");
         printDataset(speedingVehicles, "====== SPEEDING VEHICLES ======");
@@ -144,7 +146,10 @@ int main() {
         for (int i = 0; i < (int)cars.size(); i++) {
             cars.at(i).drawVehicle();
             cars.at(i).moveVehicle();
-            if (cars.at(i).isCarOutside()) {cars.at(i) = Vehicle();continue;}
+            if (cars.at(i).isCarOutside()) {
+                cars.at(i) = Vehicle();
+                continue;
+            }
         }
 
         bool collision = false;
@@ -153,10 +158,9 @@ int main() {
         for (FlockCamera& camera : cameras) {
             camera.resetColor(); // resets camera color before checking a new detection
             
-            // checks if car 1 is detected by the camera
             for (Vehicle& car : cars) {
                 if (camera.scanVehicle(car)) { 
-                    VehicleInfo info = car.getVehicleInfo(); // gets car 1's information and stores it in info
+                    VehicleInfo info = car.getVehicleInfo(); // gets car information and stores it in info
 
                     updateDataset(allVehicles, info); // updates allVehicles dataset with the detected vehicle
 

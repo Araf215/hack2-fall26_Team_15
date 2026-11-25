@@ -1,3 +1,0 @@
-/workspaces/hack2-fall26_Team_15/buils/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
-/workspaces/hack2-fall26_Team_15/buils/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
-/workspaces/hack2-fall26_Team_15/buils/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir

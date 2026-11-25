@@ -40,8 +40,8 @@ Vehicle::Vehicle() {
     if (tempColor == 0) {carColor = "Red";}
     if (tempColor == 1) {carColor = "Green";}
     if (tempColor == 2) {carColor = "Blue";}
-    // choose car make (it's not good to do it in the constructor like this - this project is quite small)
-    if      (make == 0) {carMake = "Toyota";}
+    // assigned car make
+    if (make == 0) {carMake = "Toyota";}
     else if (make == 1) {carMake = "BMW";}
     else if (make == 2) {carMake = "Volvo";}
     else if (make == 3) {carMake = "Honda";}
@@ -61,7 +61,7 @@ Vehicle::Vehicle(float startX, float startY, string make, string color)
 
 // draws the vehicle on the map
 void Vehicle::drawVehicle() {
-        Texture2D texture; // holds the car's image
+        Texture2D texture; 
 
         if (carColor == "Green") { // checks if the car color is green
             texture = CarGreen; // assigns CarGreen to texture
@@ -123,8 +123,8 @@ void Vehicle::moveVehicle(float xAmount, float yAmount) {
 
 // move vehicle using stored speed values
 void Vehicle::moveVehicle() {
-    x += xSpeed; // changes x position based on the vehicle's speed
-    y += ySpeed; // changes y position based on the vehicle's speed
+    x += xSpeed; // changes x position based on the vehicle speed
+    y += ySpeed; // changes y position based on the vehicle speed
 }
 
 // set the vehicle's speed
@@ -153,13 +153,13 @@ void Vehicle::applyCorrection() {
         turnDown(); // turns the vehicle to face downward
     }
     if (x > maxX) { // checks if the vehicle's x position has gone past the right of the screen
-        y += 15; // moves vehicle down by 15 to keep it on the road (FIXME i think?)
+        y += 15; // moves vehicle down by 15 to keep it on the road
         x = maxX; // places vehicle at allowed maximum x position
-        xSpeed = -absXSpeed; // // makes horizontal speed negative so vehicle moves left
+        xSpeed = -absXSpeed; // makes horizontal speed negative so vehicle moves left
         turnLeft(); // turns the vehicle to face left
     }
     if (y > maxY) { // checks if the vehicle's y position has gone past the bottom of the screen
-        y = maxY; // // places vehicle at allowed maximum y position
+        y = maxY; // places vehicle at allowed maximum y position
         ySpeed = -absYSpeed; // makes vertical speed negative so vehicle moves upward
         turnUp(); // turns the vehicle to face upward
     }
@@ -167,9 +167,9 @@ void Vehicle::applyCorrection() {
 
 bool Vehicle::isCarOutside() {
 
-    x += 0;
-
-    if (x < 0 || x > maxX || y < 0 || y > maxY) {return true;}
+    if (x < 0 || x > maxX || y < 0 || y > maxY) {
+        return true;
+    }
 
     return false;
 }
@@ -189,5 +189,5 @@ Rectangle Vehicle::getHitBox() {
         return {x, y - width, height, width}; // returns hitbox for facing down
     }
 
-    return {x, y, width, height}; // returns default hitbox
+    return {x, y, width, height}; // returns the default hitbox
 }

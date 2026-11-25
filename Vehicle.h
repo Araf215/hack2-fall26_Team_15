@@ -7,7 +7,7 @@
 
 
 class Vehicle {
-private: // these private  fields are attributes for our cars, we plan to add more identification attributes like car  color and  make if  time permits
+private: // these private fields are attributes for our cars
     float x = 0; // stores vehicle's horizontal position
     float y = 0; // stores vehicle's vertical position
     float xSpeed = 0.0; // stores vehicle's horizontal speed

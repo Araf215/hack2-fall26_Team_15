@@ -1,1 +1,0 @@
-/usr/bin/cc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname CMakeFiles/cmTC_09ca4.dir/CheckFunctionExists.c.o -o cmTC_09ca4 

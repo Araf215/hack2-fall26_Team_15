@@ -5,11 +5,9 @@
 #include "FlockCamera.h"
 using namespace std;
 
-// Class FlockCamera
-
 // checks if the vehicle is detected by a Flock camera
 bool FlockCamera::scanVehicle(Vehicle car) {
-    string plate = car.getLicensePlate(); // cets the vehicle's license plate and stores it into plate
+    string plate = car.getLicensePlate(); // gets the vehicle's license plate and stores it into plate
     bool detected = isVehicleInRange(car); // checks if the vehicle is within the camera's detection range
 
     for (int i = 0; i < carsInside.size(); i++) { // for loop runs through the license plate stored inside carsInside
